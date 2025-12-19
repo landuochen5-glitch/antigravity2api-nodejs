@@ -164,20 +164,6 @@ export const DEFAULT_STOP_SEQUENCES = [
 
 // ==================== 管理员默认配置 ====================
 
-/**
- * 默认管理员用户名
- * @type {string}
- */
-export const DEFAULT_ADMIN_USERNAME = 'admin';
-
-/**
- * 默认管理员密码
- * @type {string}
- */
-export const DEFAULT_ADMIN_PASSWORD = 'admin123';
-
-/**
- * 默认 JWT 密钥（生产环境应更改）
- * @type {string}
- */
-export const DEFAULT_JWT_SECRET = 'your-jwt-secret-key-change-this-in-production';
+// 注意：管理员凭据（用户名、密码、JWT密钥）现在由 config.js 自动生成随机值
+// 如果用户未配置，启动时会在控制台显示生成的凭据
+// 不再使用硬编码的默认值，提高安全性
