@@ -7,13 +7,8 @@ import config from '../config/config.js';
 
 // ==================== DNS & 代理统一配置 ====================
 
-// 强制 IPv4 DNS 解析
-function ipv4OnlyLookup(hostname, options, callback) {
-  dns.lookup(hostname, { ...options, family: 4 }, callback);
-}
-
 // 自定义 DNS 解析：优先 IPv4，失败则回退 IPv6
-function preferIPv4Lookup(hostname, options, callback) {
+function customLookup(hostname, options, callback) {
   dns.lookup(hostname, { ...options, family: 4 }, (err4, address4, family4) => {
     if (!err4 && address4) {
       return callback(null, address4, family4);
@@ -27,17 +22,14 @@ function preferIPv4Lookup(hostname, options, callback) {
   });
 }
 
-// 根据配置选择 DNS 解析策略
-const lookupFn = config.forceIPv4 ? ipv4OnlyLookup : preferIPv4Lookup;
-
-// 使用选定 DNS 解析策略的 Agent
+// 使用自定义 DNS 解析的 Agent（优先 IPv4，失败则 IPv6）
 const httpAgent = new http.Agent({
-  lookup: lookupFn,
+  lookup: customLookup,
   keepAlive: true
 });
 
 const httpsAgent = new https.Agent({
-  lookup: lookupFn,
+  lookup: customLookup,
   keepAlive: true
 });
 
