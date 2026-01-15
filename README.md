@@ -60,6 +60,40 @@ curl -O https://raw.githubusercontent.com/liuw1535/antigravity2api-nodejs/main/s
 4. 配置管理员凭据（交互式输入）
 5. 启动服务
 
+### 快速启动（已部署）
+
+如果已经部署成功，可以使用启动脚本快速启动服务：
+
+**Windows**：
+```bash
+start.bat
+```
+
+**Linux/macOS**：
+```bash
+chmod +x start.sh
+./start.sh
+```
+
+### 更新项目
+
+使用更新脚本可以安全地更新到最新版本（自动保存本地修改）：
+
+**Windows**：
+```bash
+update.bat
+```
+
+**Linux/macOS**：
+```bash
+chmod +x update.sh
+./update.sh
+```
+
+更新完成后，可以选择：
+- 恢复本地修改：`git stash pop`
+- 删除本地修改：`git stash drop`
+
 ### 方式二：手动部署
 
 #### 1. 安装依赖
