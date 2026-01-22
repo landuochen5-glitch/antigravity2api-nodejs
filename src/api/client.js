@@ -41,7 +41,13 @@ if (config.useNativeAxios === true) {
 } else {
   try {
     // 使用 src/bin/config.json 作为 TLS 指纹配置文件
-    const configPath = path.join(__dirname, '..', 'bin', 'tls_config.json');
+    // 检测是否在 pkg 环境中
+    const isPkg = typeof process.pkg !== 'undefined';
+
+    // 根据环境选择配置文件路径
+    const configPath = isPkg
+  ? path.join(path.dirname(process.execPath), 'bin', 'tls_config.json')  // pkg 打包环境
+  : path.join(__dirname, '..', 'bin', 'tls_config.json');  // 开发环境
     requester = fingerprintRequester.create({
       configPath,
       timeout: config.timeout ? Math.ceil(config.timeout / 1000) : 30,
